@@ -15,20 +15,22 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
       .then((books) => {
         this.setState(() => ({
-          books
+          books:books
         }))
       })
   }
   updateBook = (book,shelf)=>{
-    this.setState((currentState) => ({books: currentState.books.map((c)=>{
-      
-       if(c.id === book.id){
-         c.shelf = shelf;
-       }
-      
-    
-    })}))
     BooksAPI.update(book,shelf)
+       //after updating a book shelf we modify the state
+      let arr = new Array();
+      this.state.books.forEach(element => {
+        if(element.id===book.id){
+           element.shelf = shelf
+        }
+        arr.push(element)
+        
+      });
+      this.setState({books:arr})
   }
 
   render() {

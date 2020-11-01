@@ -10,6 +10,12 @@ import {search}  from './BooksAPI'
       }
     
       updateQuery = (query) => {
+        if(this.state.query.trim()==='')
+        {
+            this.setState({ 
+                books: []
+              })
+        }
         this.setState(() => ({
           query: query
         }))
@@ -17,7 +23,8 @@ import {search}  from './BooksAPI'
         {
         search(this.state.query)
         .then((books) => {
-            if(!books.error){
+            
+            if(!books.error && books.length!==0){
                 this.setState(() => ({ 
                     books: books
                   }))
@@ -27,20 +34,10 @@ import {search}  from './BooksAPI'
     }
       }
     
-      clearQuery = () => {
-        this.updateQuery('')
-      }
+
     
     render() {
-
-        const { query } = this.state
-        const { books, onUpdateBook } = this.props
-    
-        const showingBooks = query === ''
-          ? books
-          : books.filter((c) => (
-              c.title.toLowerCase().includes(query.toLowerCase())
-            ))
+  
 
         return (
             
@@ -49,7 +46,7 @@ import {search}  from './BooksAPI'
               <Link to='/' className="close-search" >Close</Link>
               <div className="search-books-input-wrapper">
                 <input type="text" placeholder="Search by title or author"
-                value={query}
+                value={this.state.query}
                 onChange={(event) => this.updateQuery(event.target.value)}                
                 />
 
@@ -60,18 +57,18 @@ import {search}  from './BooksAPI'
               {this.state.books !== undefined && this.state.books.map((book)=>(
                 
                 <li key={book.id}>
-                
+                {console.log(book)}
                 <div className="book">
                   <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url({book.imageLinks['thumbnail']})` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks===undefined?'':book.imageLinks.thumbnail})` }}></div>
                     <div className="book-shelf-changer">
                       <select 
-                   
-                      onChange={(event) => onUpdateBook(book,event.target.value)} 
+                      defaultValue={book.shelf}
+                      onChange={(event) => this.props.onUpdateBook(book,event.target.value)} 
                       >
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
+                        <option  value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
                         <option value="none">None</option>
                       </select>
