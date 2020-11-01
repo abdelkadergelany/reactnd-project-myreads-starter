@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
  import * as BooksAPI from './BooksAPI'
 import './App.css'
-import DisplayByCategory from './DisplayByCategory'
+import DisplayByShelf from './DisplayByShelf'
 import SearchPage from './SearchPage'
 
 class BooksApp extends React.Component {
@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
       let isNewBook = true;
       this.state.books.forEach(element => {
         if(element.id===book.id){
-          let isNewBook = false
+           isNewBook = false
            element.shelf = shelf
         }
       
@@ -45,7 +45,7 @@ class BooksApp extends React.Component {
       <div className="app">
             
             <Route exact path='/' render={() => (
-              <DisplayByCategory
+              <DisplayByShelf
                   books={this.state.books}
                 onUpdateBook={this.updateBook} 
               /> )} 

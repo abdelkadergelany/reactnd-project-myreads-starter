@@ -58,12 +58,12 @@ import BookShelfChanger from './BookShelfChanger'
               {this.state.books !== undefined && this.state.books.map((book)=>(
                 
                 <li key={book.id}>
-                {console.log(book)}
+               
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks===undefined?'':book.imageLinks.thumbnail})` }}></div>
                                    
-                    <BookShelfChanger book={this.props.book} onUpdateBook={this.props.onUpdateBook}  />
+                    <BookShelfChanger book={book} onUpdateBook={this.props.onUpdateBook}  />
 
                   </div>
                   <div className="book-title">{book.title}</div>
