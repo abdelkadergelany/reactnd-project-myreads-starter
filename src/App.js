@@ -21,15 +21,22 @@ class BooksApp extends React.Component {
   }
   updateBook = (book,shelf)=>{
     BooksAPI.update(book,shelf)
-       //after updating a book shelf we modify the state
+       //after updating a book'shelf, we modify the state to incorporate the change
       let arr = new Array();
+      let isNewBook = true;
       this.state.books.forEach(element => {
         if(element.id===book.id){
+          let isNewBook = false
            element.shelf = shelf
         }
+      
         arr.push(element)
         
       });
+      if(isNewBook){
+        book.shelf = shelf
+        arr.push(book)
+      }
       this.setState({books:arr})
   }
 
