@@ -4,7 +4,8 @@ import Bookshelf from './Bookshelf'
 
  class DisplayByCategory extends Component {
     render() {
-        const { books, onUpdateBook } = this.props
+ 
+      
         return (
       
          <div className="list-books">
@@ -13,10 +14,12 @@ import Bookshelf from './Bookshelf'
             </div>
             <div className="list-books-content">
                <div>
-                 <Bookshelf catName ='Currently Reading' bookBelonginTo={(books)=>(books.map((b)=>b.shelf==='Currently Reading'))} />
-                 <Bookshelf catName ='Want to Read' bookBelonginTo={(books)=>(books.map((b)=>b.shelf==='Want to Read'))} />
-                 <Bookshelf catName ='Read' bookBelonginTo={(books)=>(books.map((b)=>b.shelf==='Read'))} />
-               </div>
+              
+                 <Bookshelf onUpdateBook={this.props.onUpdateBook} catName ='Currently Reading' bookBelonginTo={this.props.books.filter((bk) => (bk.shelf==='currentlyReading'))}  />
+                 <Bookshelf onUpdateBook={this.props.onUpdateBook} catName ='Want ToRead' bookBelonginTo={this.props.books.filter((bk) => (bk.shelf==='wantToRead'))}  />
+                 <Bookshelf onUpdateBook={this.props.onUpdateBook} catName ='Read'  bookBelonginTo={this.props.books.filter((bk) => (bk.shelf==='read'))} />
+              
+                 </div>
             </div>
 
             <div className="open-search">

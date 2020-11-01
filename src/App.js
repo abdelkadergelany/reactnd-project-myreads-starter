@@ -1,5 +1,6 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import { Route } from 'react-router-dom'
+ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import DisplayByCategory from './DisplayByCategory'
 import SearchPage from './SearchPage'
@@ -11,7 +12,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    ContactsAPI.getAll()
+    BooksAPI.getAll()
       .then((books) => {
         this.setState(() => ({
           books
@@ -27,7 +28,7 @@ class BooksApp extends React.Component {
       
     
     })}))
-    ContactsAPI.update(book,shelf)
+    BooksAPI.update(book,shelf)
   }
 
   render() {
